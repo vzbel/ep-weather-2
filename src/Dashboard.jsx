@@ -76,10 +76,21 @@ export default function Dashboard(){
             <div>
                 <p className="mb-4">Recommended Places</p>
                 <div className="flex gap-5 flex-wrap">
-                    <PlaceCard />
-                    <PlaceCard />
-                    <PlaceCard />
-                    <PlaceCard />
+                    <PlaceCard 
+                    imgURL="https://images.squarespace-cdn.com/content/v1/5894b5efff7c504ed58ffbbb/1630382676436-M30BO4TG89IV5YP513AE/IMG_0639.JPG" 
+                    name='Ascarate Park'
+                    address='6900 Delta Dr. El Paso Texas 79905'
+                    />
+                    <PlaceCard 
+                    imgURL="https://lh3.googleusercontent.com/p/AF1QipPgc0qhRUAZDEXXxCKWtuq0pwRcQih0HfeB-VZi=s680-w680-h510" 
+                    name='Chelitos'
+                    address='2400 North Mesa Street, El Paso, TX 79902'
+                    />
+                    <PlaceCard 
+                    imgURL="https://visit-el-paso-2-production.s3.amazonaws.com/places/images/000/000/053/optimized/0.JPG?1495040506" 
+                    name='San Jacinto Plaza'
+                   address='114 W Mills Ave El Paso, TX 79901'
+                    />
                 </div>
             </div>
         </main>
