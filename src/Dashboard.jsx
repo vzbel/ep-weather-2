@@ -53,11 +53,11 @@ export default function Dashboard(){
 
     return (
         weatherData ?
-        <main className="px-20 py-40 bg-gray-900 flex-1 text-white">
+        <main className="px-20 py-40 flex-1 text-black">
             <section className="flex flex-wrap mb-24 gap-10">
                 
                 {/* Card showing today's weather */}
-                <div className="flex-1 flex p-5 py-8 gap-4 bg-gray-800 max-w-lg flex-wrap items-center rounded-xl shadow-sm">
+                <div className="flex-1 flex p-5 py-8 gap-4 max-w-lg flex-wrap items-center rounded-xl shadow-sm">
                     <img className="flex-1" src={weatherData.current.condition.icon} alt="" />
                     <div className="flex-1">
                         <div className="flex items-center mb-2">
@@ -74,7 +74,7 @@ export default function Dashboard(){
                     {/* Graph showing average forecast temperatures */}
                     {
                         weatherData ?
-                        <LineChart width={340} height={300} data={weatherData.forecast.forecastday} className="bg-gray-900">
+                        <LineChart width={340} height={300} data={weatherData.forecast.forecastday} className="shadow-sm">
                             <Line type="monotone" dataKey="day.avgtemp_f" stroke="#5884d8" />
                             <CartesianGrid stroke="#ccc"/>
                             <XAxis label="Day" />
@@ -90,7 +90,7 @@ export default function Dashboard(){
                     {/* Chart showing wind in MPH across next 2 days */}
                     {
                         weatherData ?
-                        <LineChart width={340} height={300} data={weatherData.forecast.forecastday} className="bg-gray-900">
+                        <LineChart width={340} height={300} data={weatherData.forecast.forecastday} className="shadow-sm">
                             <Line type="monotone" dataKey="day.maxwind_mph" stroke="#4594c8" />
                             <CartesianGrid stroke="#ccc"/>
                             <XAxis label="Day" />
@@ -117,6 +117,8 @@ export default function Dashboard(){
                                     imgURL={place.imgURL} 
                                     name={place.name}
                                     address={place.address}
+                                    description={place.description}
+                                    id={place.id}
                                     />
                                 </Link>
                             );

@@ -25,13 +25,13 @@ export default function PlaceCardDetails(){
         place ?
         <div className="flex">
             <Sidebar />
-            <article className="flex items-center gap-10 max-w-4xl mx-auto py-36 flex-wrap">
+            <article className="flex items-center gap-10 max-w-4xl mx-auto py-36 flex-wrap text-black">
                 {/* Image for place */}
                 <img src={place.imgURL} alt="" className="grow"/>
                 {/* Place data like name, description, etc */}
                 <div className="grow">
                     <div className="mb-4">
-                        <p className="text-white text-2xl">{place.name}</p>
+                        <p className="text-2xl">{place.name}</p>
                         <p className="text-gray-400">{place.address}</p>
                     </div>
                     <p className="text-gray-400">{place.description}</p>
