@@ -3,6 +3,7 @@ import PlaceCard from './PlaceCard';
 import { useEffect, useState } from 'react';
 
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip} from 'recharts';
+import { Link } from 'react-router-dom';
 
 const WEATHER_API_KEY = import.meta.env.VITE_WEATHER_API_KEY
 
