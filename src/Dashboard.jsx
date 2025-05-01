@@ -11,15 +11,21 @@ const WEATHER_API_KEY = import.meta.env.VITE_WEATHER_API_KEY
 import placesData from './Places';
 
 export default function Dashboard(){
+    // Data for El Paso's weather today
     const [weatherData, setWeatherData] = useState(null);
+
+    // List of forecast temperatures
     const [forecastTemps, setForecastTemps] = useState(null);
 
 
+    // Retrieve weather data for El Paso, TX using weather API
     useEffect(()=>{
         async function getWeatherData(){
             const response = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=${WEATHER_API_KEY}&q=El Paso&days=6&aqi=yes&alerts=no`);
             const json = await response.json();
             setWeatherData(json)
+
+            // List of temperatures forecasted for the next 2 days 
             const temp = json.forecast.forecastday.map((day)=>{
                 return day.day.avgtemp_f
             });
@@ -29,12 +35,25 @@ export default function Dashboard(){
     },[])
 
 
-    weatherData ? console.log(weatherData.forecast.forecastday) : 'lol'
+    // Filter places based on today's temperature
+    // tempRange is a list of the form [r1, r2], where r1 
+    // is the start of the range and r2 is the end of the range
+    let filteredPlaces = weatherData ? 
+        // Make sure the place's temp is in the range, inclusive
+        placesData.filter((place) => {
+            let range = place.tempRange
+            // console.log(place.tempRange)
+            return ((place.tempRange[0] <= weatherData.current.temp_f) && (weatherData.current.temp_f <= place.tempRange[1]));
+        }) 
+        : 
+        null;
 
     return (
         weatherData ?
         <main className="px-20 py-40 bg-gray-900 flex-1 text-white">
             <section className="flex flex-wrap mb-24 gap-10">
+                
+                {/* Card showing today's weather */}
                 <div className="flex-1 flex p-5 py-8 gap-4 bg-gray-800 max-w-lg flex-wrap items-center rounded-xl shadow-sm">
                     <img className="flex-1" src={weatherData.current.condition.icon} alt="" />
                     <div className="flex-1">
@@ -48,7 +67,9 @@ export default function Dashboard(){
                         <p className="text-gray-400">Cloud: {weatherData.current.cloud} %</p>
                     </div>
                 </div>
+
                 <div >
+                    {/* Graph showing average forecast temperatures */}
                     {
                         weatherData ?
                         <LineChart width={340} height={300} data={weatherData.forecast.forecastday} className="bg-gray-900">
@@ -62,7 +83,9 @@ export default function Dashboard(){
                         <p>Loading forecast...</p>
                     }
                 </div>
+
                 <div >
+                    {/* Chart showing wind in MPH across next 2 days */}
                     {
                         weatherData ?
                         <LineChart width={340} height={300} data={weatherData.forecast.forecastday} className="bg-gray-900">
@@ -79,11 +102,13 @@ export default function Dashboard(){
             </section>
 
             <div>
+                {/* A section showing the places recommended to the user based on today's temperature */}
                 <p className="mb-4">Recommended Places</p>
                 {/* Map each place to a card  */}
                 <div className="flex gap-5 flex-wrap">
                     {
-                        placesData.map((place) =>{
+                        filteredPlaces ? 
+                        filteredPlaces.map((place) =>{
                             return (
                                 <PlaceCard 
                                 imgURL={place.imgURL} 
@@ -93,6 +118,8 @@ export default function Dashboard(){
                                 />
                             );
                         })
+                        :
+                        <></>
                     }
                 </div>
             </div>
