@@ -10,6 +10,9 @@ const WEATHER_API_KEY = import.meta.env.VITE_WEATHER_API_KEY
 // Get data of all places, including name, category, address, description, image, etc. 
 import placesData from './Places';
 
+// Filtered places data
+export let filteredPlaces = null;
+
 export default function Dashboard(){
     // Data for El Paso's weather today
     const [weatherData, setWeatherData] = useState(null);
@@ -38,7 +41,7 @@ export default function Dashboard(){
     // Filter places based on today's temperature
     // tempRange is a list of the form [r1, r2], where r1 
     // is the start of the range and r2 is the end of the range
-    let filteredPlaces = weatherData ? 
+    filteredPlaces = weatherData ? 
         // Make sure the place's temp is in the range, inclusive
         placesData.filter((place) => {
             let range = place.tempRange
@@ -67,7 +70,6 @@ export default function Dashboard(){
                         <p className="text-gray-400">Cloud: {weatherData.current.cloud} %</p>
                     </div>
                 </div>
-
                 <div >
                     {/* Graph showing average forecast temperatures */}
                     {
@@ -110,12 +112,13 @@ export default function Dashboard(){
                         filteredPlaces ? 
                         filteredPlaces.map((place) =>{
                             return (
-                                <PlaceCard 
-                                imgURL={place.imgURL} 
-                                name={place.name}
-                                address={place.address}
-                                key={place.address}
-                                />
+                                <Link to={`/places/${place.id}`} className="flex" key={place.id}>
+                                    <PlaceCard 
+                                    imgURL={place.imgURL} 
+                                    name={place.name}
+                                    address={place.address}
+                                    />
+                                </Link>
                             );
                         })
                         :
