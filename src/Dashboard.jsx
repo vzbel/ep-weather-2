@@ -107,7 +107,7 @@ export default function Dashboard(){
                 {/* A section showing the places recommended to the user based on today's temperature */}
                 <p className="mb-4">Recommended Places</p>
                 {/* Map each place to a card  */}
-                <div className="flex gap-5 flex-wrap">
+                <div className="flex gap-5 flex-wrap justify-between">
                     {
                         filteredPlaces ? 
                         filteredPlaces.map((place) =>{
